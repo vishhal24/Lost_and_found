@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}
+Lost and Found
+{% endblock %}
+{%block style%}
+<style>
+body {
+    background-color: #212529; /* Dark background */
+    color: #f8f9fa;           /* Light text color */
+}
+.container{
+    
+    background-color: #343a40; /* Matching dark color for cards */
+    color: #f8f9fa;           /* Light text for readability */
+    border: none;            /* Remove default borders */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.container img {
+    border-bottom: 2px solid black; /* Add separator line below image */
+    {% comment %} width: 270px;
+    height:200px; {% endcomment %}
+    {% comment %} border:2px solid black; {% endcomment %}
+}
+.container-body {
+    border:2px solid black;
+    padding: 15px;
+}
+.card{
+    margin : 10%;
+    border:2px solid black;
+}
+.container-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+.container-text {
+    font-size: 0.875rem;
+}
+.navbar {
+    background-color: #212529; /* Navbar with the same dark background */
+}
+.heading{
+    font-family:serif;
+    text-align:center;
+}
+.navbar-brand, .nav-link {
+    color: #f8f9fa;            /* Light text color for navbar items */
+}
+.navbar-brand:hover, .nav-link:hover {
+    color: #17a2b8;            /* Light blue color on hover */
+}
+</style>
+{%endblock%}
+
+{% block content %}
+ {% comment %} <a class="btn btn-primary mb-3" href="{% url 'FoundItem_create' %}">
+    Post Found Items
+</a>    {% endcomment %}
+ <!-- Navigation Bar -->
+ <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">Lost and Found</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#footer">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Log Out</a>
+                </li>
+                {% comment %} <li>
+                    <a class="btn btn-primary" href="{% url 'FoundItem_create'%}">Post</a>
+                </li> {% endcomment %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="form/">Post</a>
+                </li>
+                <li class="nav-item">
+                    <form class="d-flex ms-3" method="GET" action="/search/">
+                        <input class="form-control" type="search" placeholder="Search items" aria-label="Search" name="query">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<h1 class="heading">Find Your Lost items </h1>
+<div class="container">
+    <div class="row gap-4 justify-content-center">
+        {% for item in items %}
+        <div class="col-md-6 col-lg-5 d-flex justify-content-center mb-3">
+            <div class="card" style="width: 18rem;">
+                <!-- Display the image -->
+                <img src="{{ item.image.url }}" class="card-img-top" alt="Image of {{ item.title }}">
+                <div class="card-body">
+                    <!-- Display the title -->
+                    <h5 class="card-title">{{ item.title }}</h5>
+
+                    <!-- Display the description -->
+                    <p class="card-text">{{ item.description }}</p>
+
+                    <!-- Display the contact number -->
+                    <p><strong>Contact:</strong> {{ item.contact_number }}</p>
+
+                    <!-- Display the location -->
+                    <p><strong>Location:</strong> {{ item.location }}</p>
+
+                    <!-- Display the date found -->
+                    <p><strong>Date Found:</strong> {{ item.date_found }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- Footer -->
+<footer class="bg-dark text-light text-center py-4">
+    <div class="container" id="footer">
+        <div class="row">
+            <!-- Contact Info Section -->
+            <div class="col-md-4"> 
+                <h5>Contact Us</h5>
+                <p>Email: support@lostandfound.com</p>
+                <p>Phone: +91 9368325183</p>
+            </div>
+
+            <!-- Social Media Links Section -->
+            <div class="col-md-4">
+                <h5>Follow Us</h5>
+                <a href="https://facebook.com" target="_blank" class="text-light me-3">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+                <a href="https://twitter.com" target="_blank" class="text-light me-3">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+                <a href="https://instagram.com" target="_blank" class="text-light">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+
+            <!-- About Us Section -->
+            <div class="col-md-4">
+                <h5>About Us</h5>
+                <p>Lost and Found is a platform for helping you recover lost items or post found items in your local area. We aim to connect people and reunite them with their belongings.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Bottom -->
+    <div class="bg-dark py-2">
+        <p class="mb-0 text-light">© 2024 Lost and Found. All rights reserved.</p>
+    </div>
+</footer>
+
+
+
+{% endblock %}
+

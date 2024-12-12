@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+Lost item found
+{% endblock %}
+  {% block style %}
+  <style>
+    body{
+        background-color : #212529;
+    }  
+  </style>
+{% endblock style %}
+
+{%block content%}
+<div class="container mt-5 d-flex justify-content-center" >
+    <div class="card p-4 shadow-lg" style="width: 100%; max-width: 500px ;">
+        <h2 class="text-center mb-4">Post a Lost Item</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-warning w-100" type="submit">Submit</button>
+        </form>
+        <a href="{% url 'found_list' %}" class="d-block mt-3 text-center">Back to Item List</a>
+    </div>
+</div>
+{% comment %} <a href ="{% url 'FoundItem_list' %}">Back to Item List </a> {% endcomment %}
+{% endblock %}
